@@ -3,6 +3,7 @@
 var INTERVAL_DELAY = 1500;
 
 angular.module('directives', [])
+  //스크롤 이벤트 바인딩
   .directive('ngScrollEvent', ['$parse', '$window', '$document', function($parse, $window, $document) {
     return function(scope, element, attr) {
       var fn = $parse(attr.ngScrollEvent);

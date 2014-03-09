@@ -10,7 +10,8 @@ var app = angular.module(
     'ngResource',
     'ngCookies',
     'ngSanitize',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'pascalprecht.translate'
   ]);
   
 app.config(function($routeProvider){
@@ -27,6 +28,16 @@ app.config(function($routeProvider){
 .config(function($httpProvider){
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.withCredentials = true;
+})
+//translate
+.config(function ($translateProvider) {
+  $translateProvider
+    .useStaticFilesLoader({
+        prefix: 'languages/',
+        suffix: '.json'
+    })
+    .preferredLanguage('ko')
+    .fallbackLanguage(['en']);
 });
 
 //    app.config();
@@ -36,7 +47,8 @@ app.controller('CommonController', [
   '$rootScope',
   '$scope',
   '$location',
-  function($rootScope, $scope, $location) {
+  '$translate',
+  function($rootScope, $scope, $location, $translate) {
     $scope.contents = {
       type: 'trends',
       data: [],
@@ -47,7 +59,7 @@ app.controller('CommonController', [
     var appname = 'greennuts';
     $scope.appInfo = $rootScope.appInfo = {
       'appname': appname,
-      'title': '샘플',
+      'title': $translate('TITLE'),
       'webUrl': 'http://nut.gy/'+appname,
       'mailto': 'mailto:nuts@jumpingnuts.com',
       'company': 'Jumping Nuts Inc.',
